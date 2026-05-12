@@ -1,5 +1,9 @@
-import type { PropsWithChildren } from 'react';
+import { Outlet } from 'react-router-dom';
 
-export function DefaultLayout({ children }: PropsWithChildren) {
-  return <main>{children}</main>;
+export function DefaultLayout() {
+  return (
+    <main>
+      <Outlet />
+    </main>
+  );
 }

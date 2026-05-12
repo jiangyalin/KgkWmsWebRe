@@ -3,9 +3,9 @@ import { PageShell } from '@shared/components/page-shell';
 export function HomePage() {
   return (
     <PageShell
-      badge="React + TypeScript"
-      title="项目已经按你的目录结构初始化好了"
-      description="当前是一个干净的 Vite + React + TypeScript 基础骨架，保留了 app、pages、layouts、modules、shared 等分层，后面可以直接往业务模块里扩展。"
+      badge="Home Route"
+      title="首页路由已经接入"
+      description="当前访问 /home 会进入这个页面。后面你可以把工作台、仪表盘或者业务首页模块继续挂到这里。"
     />
   );
 }

@@ -1,10 +1,6 @@
-import { DefaultLayout } from '@layouts/default-layout';
-import { HomePage } from '@pages/home-page';
+import { RouterProvider } from 'react-router-dom';
+import { router } from '@app/router';
 
 export function App() {
-  return (
-    <DefaultLayout>
-      <HomePage />
-    </DefaultLayout>
-  );
+  return <RouterProvider router={router} />;
 }
