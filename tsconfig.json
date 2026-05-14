@@ -26,5 +26,5 @@
       "@shared/*": ["shared/*"]
     }
   },
-  "include": ["app", "assets", "layouts", "modules", "pages", "shared", "vite-env.d.ts", "vite.config.ts"]
+  "include": ["app", "assets", "layouts", "modules", "pages", "shared", "vite-env.d.ts", "vite.config.ts", "types/global.d.ts"]
 }

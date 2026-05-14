@@ -1,0 +1,132 @@
+.loginBox {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  .bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 24px 32px;
+    width: 424px;
+    background-color: var(--el-bg-color);
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    box-shadow:
+            0 0 rgba(0, 0, 0, 0),
+            0 0 rgba(0, 0, 0, 0);
+
+    .tt {
+      display: flex;
+      height: 64px;
+      justify-content: space-between;
+      align-items: center;
+
+      .logo {
+        height: 50%;
+        font-size: 64px;
+        color: var(--el-color-primary);
+      }
+
+      .p {
+        font-weight: 800;
+        font-size: 28px;
+        color: #0000;
+        -webkit-background-clip: text;
+        background-image: linear-gradient(252deg, var(--el-color-primary-light-7) 0%, var(--el-color-primary) 100%);
+      }
+    }
+
+    .sn {
+      display: block;
+      padding-top: 28px;
+      font-weight: 800;
+      font-size: 18px;
+      line-height: 28px;
+      color: var(--el-color-primary);
+    }
+
+    .ct {
+      padding-top: 24px;
+
+      .it {
+        margin-bottom: 16px;
+        height: 40px;
+        background-color: var(--el-input-bg-color, var(--el-fill-color-blank));
+        background-image: none;
+        border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+        border-color: var(--el-border-color);
+
+        &:focus {
+          border-color: var(--el-color-primary);
+        }
+      }
+
+      .cbx {
+        margin-bottom: 26px;
+        padding-left: 0;
+        height: 40px;
+        line-height: 40px;
+      }
+
+      .btn {
+        width: 100%;
+        height: 40px;
+      }
+
+      .m2 {
+        margin-bottom: 16px;
+      }
+    }
+  }
+
+  .mySelects {
+    display: flex;
+    box-shadow: 0 0 0 1px var(--el-border-color);
+    border-radius: 3px;
+
+    .myLoginSys{
+      width: 45%;
+    }
+  }
+
+  .noBr {
+    width: 100%;
+    height: 40px;
+    border: 0;
+    box-shadow: none;
+
+    &:global(.arco-select-size-default.arco-select-single) {
+      :global(.arco-select-view) {
+        height: 100%;
+        line-height: 38px;
+      }
+    }
+
+    :global(.arco-select-view) {
+      height: 100%;
+    }
+  }
+
+  .noBr + .noBr {
+    border-left: 1px solid var(--el-border-color);
+  }
+}
+
+.darkDiv {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  color: var(--el-color-primary);
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  line-height: 29px;
+}
