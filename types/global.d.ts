@@ -184,8 +184,8 @@ declare interface PasteAction<T extends Record<string, any> = any, AttItem = str
 }
 
 declare interface MenuDataItemType {
-  id: number;
-  pid: number;
+  id: number | string;
+  pid: number | string;
   name: string;
   code: string;
   path: string;
@@ -194,7 +194,7 @@ declare interface MenuDataItemType {
   icon: string;
   isBtn: boolean;
   isHid: boolean;
-  appId: number | null;
+  appId: number | null | string;
 }
 /** 本地菜单数据 */
 declare type MenuDataType = MenuDataItemType[]

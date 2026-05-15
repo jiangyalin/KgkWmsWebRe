@@ -1,11 +1,11 @@
 import Axios from 'axios'
 import type { AxiosResponse } from 'axios/index.d'
-import { ElMessage } from 'element-plus'
-import config from './../../config'
+import { Message } from '@arco-design/web-react';
+import config from '@app/config'
 import type { RequestFunc } from '../interface/type'
 import { Method } from '../interface/enum'
-import signOut from '@/hook/signOut'
-import privateCookies from '@/tool/privateCookies'
+// import signOut from '@/hook/signOut'
+import privateCookies from '@shared/utils/privateCookies'
 
 // 是否存在未关闭的弹窗
 let isExistModal: boolean = false
@@ -36,15 +36,15 @@ const ajax: RequestFunc = (
         if (code === 401 || code === 1001) {
           if (isExistModal) return
           isExistModal = true
-          signOut(res.data.msg || '登录失效，请重新登陆。').then(() => {
-            isExistModal = false
-          })
+          // signOut(res.data.msg || '登录失效，请重新登陆。').then(() => {
+          //   isExistModal = false
+          // })
           return false
         }
 
         if (code !== 0 && code !== 206 && code !== 204) {
           // 业务异常
-          if (showErrMsg) ElMessage.warning(res.data.msg)
+          if (showErrMsg) Message.warning(res.data.msg)
           reject(res.data)
           return false
         }
@@ -55,7 +55,7 @@ const ajax: RequestFunc = (
         // 请在此处处理http异常
         console.log(err)
         reject(err.data)
-        if (showErrMsg) ElMessage.error('网络异常，请稍后再试!')
+        if (showErrMsg) Message.error('网络异常，请稍后再试!')
       })
   })
 }
