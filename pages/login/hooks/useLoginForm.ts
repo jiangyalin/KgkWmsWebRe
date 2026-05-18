@@ -7,12 +7,15 @@ import privateCookies from '@shared/utils/privateCookies'
 import crypto from '@shared/utils/crypto'
 import traverseTree from '@shared/utils/traverseTree'
 import privateLocalStorage from '@shared/utils/privateLocalStorage'
+import { useNavigate } from 'react-router-dom';
 
 export const useLoginForm = () => {
   const [accList, setAccList] = useState<Option[]>([])
   const [btnLoading, setBtnLoading] = useState<boolean>(false)
   const [dialogVisible206, setDialogVisible206] = useState<boolean>(false)
   const [msg206, setMsg206] = useState<string>('')
+
+  const navigate = useNavigate()
 
   interface Login {
     account: string // 账号
@@ -86,10 +89,7 @@ export const useLoginForm = () => {
       privateCookies.set('remember', ruleForm.remember ? 'true' : 'false')
       privateCookies.set('systemType', ruleForm.SystemType)
       privateCookies.set('sAccId', ruleForm.sAccId)
-      const loginUserParam = {
-        appId: ''
-      }
-      const userauthdata = await api.sysuser.getSysuserUserauthdata(loginUserParam)
+      const userauthdata = await api.sysuser.getSysuserUserauthdata({ appId: '' })
       const treeMap = (tree: MenusItemType[]): MenuDataType => {
         return tree.filter(item => !item.isBtn).filter(item => item.code !== 'DataDashboard').map(item => {
           return {
@@ -141,10 +141,20 @@ export const useLoginForm = () => {
           })
         })
       } finally {
+        navigate('/home')
       }
     } finally {
       setBtnLoading(false)
     }
+  }
+
+  const clickYes = () => {
+    setDialogVisible206(false)
+    setRuleForm({
+      ...ruleForm,
+      ForceLogin: true
+    })
+    login()
   }
 
   return {
@@ -157,6 +167,7 @@ export const useLoginForm = () => {
     dialogVisible206,
     setDialogVisible206,
     msg206,
-    login
+    login,
+    clickYes
   }
 }
