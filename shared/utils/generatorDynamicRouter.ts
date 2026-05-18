@@ -1,5 +1,4 @@
 // 前端路由表
-// import listToTree from './listToTree'
 import myComponets from '../../src/router/pathToComponet'
 
 /**

@@ -5,14 +5,14 @@ import { Message } from '@arco-design/web-react';
 import { GetSysuserUserauthdataResType } from '@/services/generated/api/sysuser'
 import privateCookies from '@shared/utils/privateCookies'
 import crypto from '@shared/utils/crypto'
-import generatorDynamicRouter from '@shared/utils/generatorDynamicRouter'
 import traverseTree from '@shared/utils/traverseTree'
 import privateLocalStorage from '@shared/utils/privateLocalStorage'
-import config from '@app/config'
 
 export const useLoginForm = () => {
   const [accList, setAccList] = useState<Option[]>([])
   const [btnLoading, setBtnLoading] = useState<boolean>(false)
+  const [dialogVisible206, setDialogVisible206] = useState<boolean>(false)
+  const [msg206, setMsg206] = useState<string>('')
 
   interface Login {
     account: string // 账号
@@ -68,8 +68,8 @@ export const useLoginForm = () => {
       })
 
       if (res.code === 206) {
-        dialogVisible206.value = true
-        msg206.value = res.msg
+        setDialogVisible206(true)
+        setMsg206(res.msg ?? '')
         return false
       }
       privateCookies.set('token', res.data.accessToken)
@@ -120,17 +120,6 @@ export const useLoginForm = () => {
           name: item.Name ?? ''
         }
       })
-      const routerData = generatorDynamicRouter(menuData)
-      // const appRouterData = routerData.filter((item: any) => item.appId === AppsData[0]?.id)
-
-      router.addRoute({
-        path: '/',
-        name: 'Home',
-        component: Main,
-        children: routerData
-      })
-      let defaultPath: string = routerData[0]?.children[0]?.path || '/'
-      if (res.data.BNonAnyAuth) defaultPath = '/403'
 
       // 保存按钮权限
       const menuBtnsPermission = await api.sysuser.getSysuserUserauthbtns()
@@ -140,9 +129,9 @@ export const useLoginForm = () => {
       })
       try {
         privateLocalStorage.clear()
-        if (res.data.userImg) {
-          privateLocalStorage.setItem('avatar', config.serverApi + '/' + res.data.userImg)
-        }
+        // if (res.data.userImg) {
+        //   privateLocalStorage.setItem('avatar', config.serverApi + '/' + res.data.userImg)
+        // }
         privateLocalStorage.setItem('menuData', JSON.stringify(menuData))
         privateLocalStorage.setItem('AppsData', JSON.stringify(AppsData))
         privateLocalStorage.setItem('buttonPermissions', JSON.stringify(buttonPermissions))
@@ -152,7 +141,6 @@ export const useLoginForm = () => {
           })
         })
       } finally {
-        router.push(defaultPath)
       }
     } finally {
       setBtnLoading(false)
@@ -165,6 +153,10 @@ export const useLoginForm = () => {
     getAccList,
     setRuleForm,
     updateField,
-    btnLoading
+    btnLoading,
+    dialogVisible206,
+    setDialogVisible206,
+    msg206,
+    login
   }
 }

@@ -1,13 +1,13 @@
 import LoginBg from '@pages/login/components/LoginBg'
 import styles from './styles/login.module.scss'
 import logoImg from './../../assets/login/logo-icon.png'
-import { Form, Input, Select, Checkbox, Button } from '@arco-design/web-react'
+import { Form, Input, Select, Checkbox, Button, Modal } from '@arco-design/web-react'
 import { useLoginForm } from '@pages/login/hooks/useLoginForm'
 
 const Option = Select.Option
 
 export const LoginPage = () => {
-  const { accList, ruleForm, getAccList, updateField } = useLoginForm()
+  const { accList, ruleForm, getAccList, updateField, dialogVisible206, setDialogVisible206, msg206, login } = useLoginForm()
 
   return (
     <div className={ styles.loginBox }>
@@ -67,12 +67,23 @@ export const LoginPage = () => {
               className={ styles.btn }
               shape="round"
               type="primary"
+              onClick={login}
             >
               登录
             </Button>
           </div>
         </Form>
       </div>
+      <Modal
+        title='温馨提示'
+        visible={dialogVisible206}
+        onOk={() => setDialogVisible206(false)}
+        onCancel={() => setDialogVisible206(false)}
+        autoFocus={false}
+        focusLock={true}
+      >
+        <p>{ msg206 }</p>
+      </Modal>
     </div>
   )
 }
