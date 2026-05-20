@@ -1,8 +1,8 @@
-import { useMemo } from 'react'
-import { getColorPalette } from './color'
-import CornerTop from './CornerTop'
-import CornerBottom from './CornerBottom'
-import computeColor from '@shared/utils/computeColor'
+import { useMemo } from 'react';
+import computeColor from '@shared/utils/computeColor';
+import { getColorPalette } from './color';
+import CornerTop from './CornerTop';
+import CornerBottom from './CornerBottom';
 
 interface LoginBgProps {
   /** 主题颜色 */
@@ -11,21 +11,21 @@ interface LoginBgProps {
   darkTheme: boolean;
 }
 
-export default function LoginBg ({ themeColor, darkTheme }: LoginBgProps) {
+export default function LoginBg({ themeColor, darkTheme }: LoginBgProps) {
   const boxBgStyle = useMemo(() => {
-    const color = computeColor(themeColor, 80)
+    const color = computeColor(themeColor, 80);
     return {
-      backgroundColor: computeColor(color, darkTheme ? -10 : 0)
-    }
-  }, [themeColor, darkTheme])
+      backgroundColor: computeColor(color, darkTheme ? -10 : 0),
+    };
+  }, [themeColor, darkTheme]);
 
   const mergedThemeColor = useMemo(
     () => (darkTheme ? getColorPalette(themeColor, 7) : themeColor),
-    [themeColor, darkTheme]
-  )
+    [themeColor, darkTheme],
+  );
 
-  const lightColor = useMemo(() => getColorPalette(mergedThemeColor, 3), [mergedThemeColor])
-  const darkColor = useMemo(() => getColorPalette(mergedThemeColor, 6), [mergedThemeColor])
+  const lightColor = useMemo(() => getColorPalette(mergedThemeColor, 3), [mergedThemeColor]);
+  const darkColor = useMemo(() => getColorPalette(mergedThemeColor, 6), [mergedThemeColor]);
 
   return (
     <div className="g-login-bg-box" style={boxBgStyle}>
@@ -34,7 +34,7 @@ export default function LoginBg ({ themeColor, darkTheme }: LoginBgProps) {
         style={{
           position: 'absolute',
           right: '-300px',
-          top: '-900px'
+          top: '-900px',
         }}
       >
         <CornerTop startColor={lightColor} endColor={darkColor} />
@@ -45,12 +45,11 @@ export default function LoginBg ({ themeColor, darkTheme }: LoginBgProps) {
         style={{
           position: 'absolute',
           left: '-200px',
-          bottom: '-400px'
+          bottom: '-400px',
         }}
       >
         <CornerBottom startColor={darkColor} endColor={lightColor} />
       </div>
     </div>
-  )
+  );
 }
-

@@ -4,7 +4,7 @@ import {
   Space,
   Table,
   Tag,
-  Typography
+  Typography,
 } from '@arco-design/web-react';
 import {
   IconApps,
@@ -17,7 +17,7 @@ import {
   IconSettings,
   IconStorage,
   IconSwap,
-  IconUser
+  IconUser,
 } from '@arco-design/web-react/icon';
 
 import styles from './styles/home.module.scss';
@@ -26,45 +26,53 @@ const workItems = [
   { label: '待收货单', value: '12', tone: 'blue' },
   { label: '待上架任务', value: '8', tone: 'green' },
   { label: '待拣货单', value: '23', tone: 'orange' },
-  { label: '待复核出库', value: '5', tone: 'red' }
+  { label: '待复核出库', value: '5', tone: 'red' },
 ];
 
 const quickActions = [
   { icon: <IconPlus />, title: '新建入库单', description: '采购到货、其他入库' },
   { icon: <IconSwap />, title: '库存调拨', description: '库区、货位间转移' },
   { icon: <IconStorage />, title: '库存查询', description: '按物料、批次、货位检索' },
-  { icon: <IconFile />, title: '单据审核', description: '处理待审批业务单据' }
+  { icon: <IconFile />, title: '单据审核', description: '处理待审批业务单据' },
 ];
 
 const documents = [
-  { key: '1', code: 'RK-20260518-0012', type: '采购入库', owner: '张伟', status: '待上架', time: '10:42' },
-  { key: '2', code: 'CK-20260518-0048', type: '销售出库', owner: '李娜', status: '待复核', time: '10:16' },
-  { key: '3', code: 'DB-20260518-0007', type: '库存调拨', owner: '王强', status: '执行中', time: '09:58' },
-  { key: '4', code: 'PD-20260518-0003', type: '盘点任务', owner: '赵敏', status: '未开始', time: '09:21' }
+  {
+    key: '1', code: 'RK-20260518-0012', type: '采购入库', owner: '张伟', status: '待上架', time: '10:42',
+  },
+  {
+    key: '2', code: 'CK-20260518-0048', type: '销售出库', owner: '李娜', status: '待复核', time: '10:16',
+  },
+  {
+    key: '3', code: 'DB-20260518-0007', type: '库存调拨', owner: '王强', status: '执行中', time: '09:58',
+  },
+  {
+    key: '4', code: 'PD-20260518-0003', type: '盘点任务', owner: '赵敏', status: '未开始', time: '09:21',
+  },
 ];
 
 const columns = [
   {
     title: '单据编号',
-    dataIndex: 'code'
+    dataIndex: 'code',
   },
   {
     title: '业务类型',
-    dataIndex: 'type'
+    dataIndex: 'type',
   },
   {
     title: '负责人',
-    dataIndex: 'owner'
+    dataIndex: 'owner',
   },
   {
     title: '状态',
     dataIndex: 'status',
-    render: (status: string) => <Tag color="arcoblue">{status}</Tag>
+    render: (status: string) => <Tag color="arcoblue">{status}</Tag>,
   },
   {
     title: '更新时间',
-    dataIndex: 'time'
-  }
+    dataIndex: 'time',
+  },
 ];
 
 export function HomePage() {
@@ -80,26 +88,26 @@ export function HomePage() {
         </div>
 
         <nav className={styles.nav}>
-          <a className={styles.navItemActive}>
+          <button type="button" className={styles.navItemActive}>
             <IconHome />
             工作台
-          </a>
-          <a className={styles.navItem}>
+          </button>
+          <button type="button" className={styles.navItem}>
             <IconStorage />
             库存管理
-          </a>
-          <a className={styles.navItem}>
+          </button>
+          <button type="button" className={styles.navItem}>
             <IconSwap />
             出入库业务
-          </a>
-          <a className={styles.navItem}>
+          </button>
+          <button type="button" className={styles.navItem}>
             <IconFile />
             单据中心
-          </a>
-          <a className={styles.navItem}>
+          </button>
+          <button type="button" className={styles.navItem}>
             <IconSettings />
             系统设置
-          </a>
+          </button>
         </nav>
       </aside>
 
@@ -136,7 +144,7 @@ export function HomePage() {
 
         <section className={styles.workGrid}>
           {workItems.map((item) => (
-            <button className={styles.workItem} key={item.label}>
+            <button type="button" className={styles.workItem} key={item.label}>
               <span className={styles.workLabel}>{item.label}</span>
               <span className={styles.workValue}>{item.value}</span>
               <span className={styles.workHint}>点击进入处理队列</span>
@@ -152,7 +160,7 @@ export function HomePage() {
             </div>
             <div className={styles.actionGrid}>
               {quickActions.map((action) => (
-                <button className={styles.actionItem} key={action.title}>
+                <button type="button" className={styles.actionItem} key={action.title}>
                   <span className={styles.actionIcon}>{action.icon}</span>
                   <span>
                     <span className={styles.actionTitle}>{action.title}</span>

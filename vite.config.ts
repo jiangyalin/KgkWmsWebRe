@@ -1,10 +1,14 @@
 import { fileURLToPath, URL } from 'node:url';
+import eslint from 'vite-plugin-eslint';
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    eslint(),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./', import.meta.url)),
@@ -13,7 +17,7 @@ export default defineConfig({
       '@layouts': fileURLToPath(new URL('./layouts', import.meta.url)),
       '@modules': fileURLToPath(new URL('./modules', import.meta.url)),
       '@pages': fileURLToPath(new URL('./pages', import.meta.url)),
-      '@shared': fileURLToPath(new URL('./shared', import.meta.url))
-    }
-  }
+      '@shared': fileURLToPath(new URL('./shared', import.meta.url)),
+    },
+  },
 });

@@ -1,23 +1,23 @@
-import { colord, extend } from 'colord'
-import namesPlugin from 'colord/plugins/names'
-import mixPlugin from 'colord/plugins/mix'
+import { colord, extend } from 'colord';
+import namesPlugin from 'colord/plugins/names';
+import mixPlugin from 'colord/plugins/mix';
 
-extend([namesPlugin, mixPlugin])
+extend([namesPlugin, mixPlugin]);
 
 /** 色相阶梯 */
-const hueStep = 2
+const hueStep = 2;
 /** 饱和度阶梯，浅色部分 */
-const saturationStep = 16
+const saturationStep = 16;
 /** 饱和度阶梯，深色部分 */
-const saturationStep2 = 5
+const saturationStep2 = 5;
 /** 亮度阶梯，浅色部分 */
-const brightnessStep1 = 5
+const brightnessStep1 = 5;
 /** 亮度阶梯，深色部分 */
-const brightnessStep2 = 15
+const brightnessStep2 = 15;
 /** 浅色数量，主色上 */
-const lightColorCount = 5
+const lightColorCount = 5;
 /** 深色数量，主色下 */
-const darkColorCount = 4
+const darkColorCount = 4;
 
 /**
  * 调色板的颜色索引
@@ -32,28 +32,28 @@ type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
  * @returns 返回hex格式的颜色
  */
 export const getColorPalette = (color: any, index: ColorIndex): string => {
-  const transformColor = colord(color)
+  const transformColor = colord(color);
 
   if (!transformColor.isValid()) {
-    throw Error('invalid input color value')
+    throw Error('invalid input color value');
   }
 
   if (index === 6) {
-    return colord(transformColor).toHex()
+    return colord(transformColor).toHex();
   }
 
-  const isLight = index < 6
-  const hsv = transformColor.toHsv()
-  const i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1
+  const isLight = index < 6;
+  const hsv = transformColor.toHsv();
+  const i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1;
 
   const newHsv: any = {
     h: getHue(hsv, i, isLight),
     s: getSaturation(hsv, i, isLight),
-    v: getValue(hsv, i, isLight)
-  }
+    v: getValue(hsv, i, isLight),
+  };
 
-  return colord(newHsv).toHex()
-}
+  return colord(newHsv).toHex();
+};
 
 /** 暗色主题颜色映射关系表 */
 const darkColorMap = [
@@ -66,8 +66,8 @@ const darkColorMap = [
   { index: 4, opacity: 0.9 },
   { index: 3, opacity: 0.95 },
   { index: 2, opacity: 0.97 },
-  { index: 1, opacity: 0.98 }
-]
+  { index: 1, opacity: 0.98 },
+];
 
 /**
  * 根据颜色获取调色板颜色所有颜色
@@ -76,22 +76,22 @@ const darkColorMap = [
  * @param darkThemeMixColor - 暗黑主题的混合颜色，默认 #141414
  */
 export const getColorPalettes = (color: any, darkTheme = false, darkThemeMixColor = '#141414'): string[] => {
-  const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const patterns = indexes.map(index => getColorPalette(color, index))
+  const patterns = indexes.map((index) => getColorPalette(color, index));
 
   if (darkTheme) {
     const darkPatterns = darkColorMap.map(({ index, opacity }) => {
-      const darkColor = colord(darkThemeMixColor).mix(patterns[index], opacity)
+      const darkColor = colord(darkThemeMixColor).mix(patterns[index], opacity);
 
-      return darkColor
-    })
+      return darkColor;
+    });
 
-    return darkPatterns.map(item => colord(item).toHex())
+    return darkPatterns.map((item) => colord(item).toHex());
   }
 
-  return patterns
-}
+  return patterns;
+};
 
 /**
  * 获取色相渐变
@@ -100,32 +100,32 @@ export const getColorPalettes = (color: any, darkTheme = false, darkThemeMixColo
  * @param isLight - 是否是亮颜色
  */
 const getHue = (hsv: any, i: number, isLight: boolean) => {
-  let hue: number
+  let hue: number;
 
-  const hsvH = Math.round(hsv.h)
+  const hsvH = Math.round(hsv.h);
 
   if (hsvH >= 60 && hsvH <= 240) {
     // 冷色调
     // 减淡变亮 色相顺时针旋转 更暖
     // 加深变暗 色相逆时针旋转 更冷
-    hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i
+    hue = isLight ? hsvH - hueStep * i : hsvH + hueStep * i;
   } else {
     // 暖色调
     // 减淡变亮 色相逆时针旋转 更暖
     // 加深变暗 色相顺时针旋转 更冷
-    hue = isLight ? hsvH + hueStep * i : hsvH - hueStep * i
+    hue = isLight ? hsvH + hueStep * i : hsvH - hueStep * i;
   }
 
   if (hue < 0) {
-    hue += 360
+    hue += 360;
   }
 
   if (hue >= 360) {
-    hue -= 360
+    hue -= 360;
   }
 
-  return hue
-}
+  return hue;
+};
 
 /**
  * 获取饱和度渐变
@@ -136,33 +136,33 @@ const getHue = (hsv: any, i: number, isLight: boolean) => {
 const getSaturation = (hsv: any, i: number, isLight: boolean) => {
   // 灰色不渐变
   if (hsv.h === 0 && hsv.s === 0) {
-    return hsv.s
+    return hsv.s;
   }
 
-  let saturation: number
+  let saturation: number;
 
   if (isLight) {
-    saturation = hsv.s - saturationStep * i
+    saturation = hsv.s - saturationStep * i;
   } else if (i === darkColorCount) {
-    saturation = hsv.s + saturationStep
+    saturation = hsv.s + saturationStep;
   } else {
-    saturation = hsv.s + saturationStep2 * i
+    saturation = hsv.s + saturationStep2 * i;
   }
 
   if (saturation > 100) {
-    saturation = 100
+    saturation = 100;
   }
 
   if (isLight && i === lightColorCount && saturation > 10) {
-    saturation = 10
+    saturation = 10;
   }
 
   if (saturation < 6) {
-    saturation = 6
+    saturation = 6;
   }
 
-  return saturation
-}
+  return saturation;
+};
 
 /**
  * 获取明度渐变
@@ -171,29 +171,27 @@ const getSaturation = (hsv: any, i: number, isLight: boolean) => {
  * @param isLight - 是否是亮颜色
  */
 const getValue = (hsv: any, i: number, isLight: boolean) => {
-  let value: number
+  let value: number;
 
   if (isLight) {
-    value = hsv.v + brightnessStep1 * i
+    value = hsv.v + brightnessStep1 * i;
   } else {
-    value = hsv.v - brightnessStep2 * i
+    value = hsv.v - brightnessStep2 * i;
   }
 
   if (value > 100) {
-    value = 100
+    value = 100;
   }
 
-  return value
-}
+  return value;
+};
 
 /**
  * 给颜色加透明度
  * @param color - 颜色
  * @param alpha - 透明度(0 - 1)
  */
-export const addColorAlpha = (color: string, alpha: number) => {
-  return colord(color).alpha(alpha).toHex()
-}
+export const addColorAlpha = (color: string, alpha: number) => colord(color).alpha(alpha).toHex();
 
 /**
  * 颜色混合
@@ -201,18 +199,18 @@ export const addColorAlpha = (color: string, alpha: number) => {
  * @param secondColor - 第二个颜色
  * @param ratio - 第二个颜色占比
  */
-export const mixColor = (firstColor: string, secondColor: string, ratio: number) => {
-  return colord(firstColor).mix(secondColor, ratio).toHex()
-}
+export const mixColor = (firstColor: string, secondColor: string, ratio: number) => (
+  colord(firstColor).mix(secondColor, ratio).toHex()
+);
 
 /**
  * 是否是白颜色
  * @param color - 颜色
  */
-export const isWhiteColor = (color: string) => colord(color).isEqual('#ffffff')
+export const isWhiteColor = (color: string) => colord(color).isEqual('#ffffff');
 
 /**
  *  获取颜色的rgb值
  * @param color 颜色
  */
-export const getRgbOfColor = (color: string) => colord(color).toRgb()
+export const getRgbOfColor = (color: string) => colord(color).toRgb();

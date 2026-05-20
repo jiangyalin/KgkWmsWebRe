@@ -5,10 +5,10 @@ interface CornerTopProps {
   endColor?: string;
 }
 
-export default function CornerTop ({
-                                     startColor = '#28aff0',
-                                     endColor = '#120fc4'
-                                   }: CornerTopProps) {
+export default function CornerTop({
+  startColor = '#28aff0',
+  endColor = '#120fc4',
+}: CornerTopProps) {
   return (
     <svg height="1337" width="1337">
       <defs>
@@ -27,7 +27,5 @@ export default function CornerTop ({
         <use xlinkHref="#path-1" fill="url(#linearGradient-2)" fillOpacity="1" />
       </g>
     </svg>
-  )
+  );
 }
-
-

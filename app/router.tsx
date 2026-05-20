@@ -11,20 +11,20 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/login" replace />
+        element: <Navigate to="/login" replace />,
       },
       {
         path: 'login',
-        element: <LoginPage />
+        element: <LoginPage />,
       },
       {
         path: 'home',
-        element: <HomePage />
+        element: <HomePage />,
       },
       {
         path: '*',
-        element: <Navigate to="/login" replace />
-      }
-    ]
-  }
+        element: <Navigate to="/login" replace />,
+      },
+    ],
+  },
 ]);

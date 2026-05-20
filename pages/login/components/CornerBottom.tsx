@@ -5,10 +5,10 @@ interface CornerBottomProps {
   endColor?: string;
 }
 
-export default function CornerBottom ({
-                                        startColor = '#28aff0',
-                                        endColor = '#120fc4'
-                                      }: CornerBottomProps) {
+export default function CornerBottom({
+  startColor = '#28aff0',
+  endColor = '#120fc4',
+}: CornerBottomProps) {
   return (
     <svg
       version="1.1"
@@ -33,7 +33,5 @@ export default function CornerBottom ({
         <use xlinkHref="#path-2" fill="url(#linearGradient-3)" fillOpacity="1" />
       </g>
     </svg>
-  )
+  );
 }
-
-
