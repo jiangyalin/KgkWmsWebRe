@@ -8,6 +8,7 @@ import crypto from '@shared/utils/crypto';
 import traverseTree from '@shared/utils/traverseTree';
 import privateLocalStorage from '@shared/utils/privateLocalStorage';
 import { useNavigate } from 'react-router-dom';
+import decode from '@shared/utils/decode';
 
 export const useLoginForm = () => {
   const [accList, setAccList] = useState<Option[]>([]);
@@ -26,20 +27,24 @@ export const useLoginForm = () => {
     uuid: string
     ForceLogin: boolean // 强制登录
   }
-  const [ruleForm, setRuleForm] = useState<Login>({
-    account: '',
-    password: '',
-    sAccId: undefined,
-    remember: false,
-    SystemType: 1,
-    uuid: nanoid(),
-    ForceLogin: false,
+  const [ruleForm, setRuleForm] = useState<Login>(() => {
+    const remember = privateCookies.get('remember') === 'true';
+    return {
+      account: remember ? (privateCookies.get('account') || '') : '',
+      password: remember ? (decode(privateCookies.get('password') || '') || '') : '',
+      sAccId: undefined,
+      remember,
+      SystemType: 1,
+      uuid: nanoid(),
+      ForceLogin: false,
+    };
   });
+
   const updateField = <K extends keyof Login>(key: K, value: Login[K]) => {
-    setRuleForm({
-      ...ruleForm,
+    setRuleForm((prev) => ({
+      ...prev,
       [key]: value,
-    });
+    }));
   };
 
   const getAccList = async () => {
