@@ -1,5 +1,5 @@
 // 返回是否拥有权限
-import privateLocalStorage from '@/tool/privateLocalStorage'
+import privateLocalStorage from './privateLocalStorage'
 
 const permission = (edit:string, info:string) => {
   const btn = JSON.parse(privateLocalStorage.getItem('buttonPermissions') as string)

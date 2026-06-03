@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 import eslint from 'vite-plugin-eslint';
+import checker from 'vite-plugin-checker';
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
@@ -8,6 +9,14 @@ export default defineConfig({
   plugins: [
     react(),
     eslint(),
+    checker({
+      // 启用 TypeScript 检查
+      typescript: true,
+      // vueTsc: {
+      //   tsconfigPath: './tsconfig.json'
+      // },
+      enableBuild: true
+    })
   ],
   resolve: {
     alias: {

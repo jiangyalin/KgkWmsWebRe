@@ -25,36 +25,6 @@ const darkColorCount = 4;
  */
 type ColorIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 
-/**
- * 根据颜色获取调色板颜色(从左至右颜色从浅到深，6为主色号)
- * @param color - 颜色
- * @param index - 调色板的对应的色号(6为主色号)
- * @returns 返回hex格式的颜色
- */
-export const getColorPalette = (color: any, index: ColorIndex): string => {
-  const transformColor = colord(color);
-
-  if (!transformColor.isValid()) {
-    throw Error('invalid input color value');
-  }
-
-  if (index === 6) {
-    return colord(transformColor).toHex();
-  }
-
-  const isLight = index < 6;
-  const hsv = transformColor.toHsv();
-  const i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1;
-
-  const newHsv: any = {
-    h: getHue(hsv, i, isLight),
-    s: getSaturation(hsv, i, isLight),
-    v: getValue(hsv, i, isLight),
-  };
-
-  return colord(newHsv).toHex();
-};
-
 /** 暗色主题颜色映射关系表 */
 const darkColorMap = [
   { index: 7, opacity: 0.15 },
@@ -68,30 +38,6 @@ const darkColorMap = [
   { index: 2, opacity: 0.97 },
   { index: 1, opacity: 0.98 },
 ];
-
-/**
- * 根据颜色获取调色板颜色所有颜色
- * @param color - 颜色
- * @param darkTheme - 暗黑主题的调色板颜色
- * @param darkThemeMixColor - 暗黑主题的混合颜色，默认 #141414
- */
-export const getColorPalettes = (color: any, darkTheme = false, darkThemeMixColor = '#141414'): string[] => {
-  const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-  const patterns = indexes.map((index) => getColorPalette(color, index));
-
-  if (darkTheme) {
-    const darkPatterns = darkColorMap.map(({ index, opacity }) => {
-      const darkColor = colord(darkThemeMixColor).mix(patterns[index], opacity);
-
-      return darkColor;
-    });
-
-    return darkPatterns.map((item) => colord(item).toHex());
-  }
-
-  return patterns;
-};
 
 /**
  * 获取色相渐变
@@ -214,3 +160,57 @@ export const isWhiteColor = (color: string) => colord(color).isEqual('#ffffff');
  * @param color 颜色
  */
 export const getRgbOfColor = (color: string) => colord(color).toRgb();
+
+/**
+ * 根据颜色获取调色板颜色(从左至右颜色从浅到深，6为主色号)
+ * @param color - 颜色
+ * @param index - 调色板的对应的色号(6为主色号)
+ * @returns 返回hex格式的颜色
+ */
+export const getColorPalette = (color: any, index: ColorIndex): string => {
+  const transformColor = colord(color);
+
+  if (!transformColor.isValid()) {
+    throw Error('invalid input color value');
+  }
+
+  if (index === 6) {
+    return colord(transformColor).toHex();
+  }
+
+  const isLight = index < 6;
+  const hsv = transformColor.toHsv();
+  const i = isLight ? lightColorCount + 1 - index : index - lightColorCount - 1;
+
+  const newHsv: any = {
+    h: getHue(hsv, i, isLight),
+    s: getSaturation(hsv, i, isLight),
+    v: getValue(hsv, i, isLight),
+  };
+
+  return colord(newHsv).toHex();
+};
+
+/**
+ * 根据颜色获取调色板颜色所有颜色
+ * @param color - 颜色
+ * @param darkTheme - 暗黑主题的调色板颜色
+ * @param darkThemeMixColor - 暗黑主题的混合颜色，默认 #141414
+ */
+export const getColorPalettes = (color: any, darkTheme = false, darkThemeMixColor = '#141414'): string[] => {
+  const indexes: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const patterns = indexes.map((index) => getColorPalette(color, index));
+
+  if (darkTheme) {
+    const darkPatterns = darkColorMap.map(({ index, opacity }) => {
+      const darkColor = colord(darkThemeMixColor).mix(patterns[index], opacity);
+
+      return darkColor;
+    });
+
+    return darkPatterns.map((item) => colord(item).toHex());
+  }
+
+  return patterns;
+};

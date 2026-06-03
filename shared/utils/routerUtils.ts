@@ -1,4 +1,4 @@
-import privateCookies from '@/tool/privateCookies'
+import privateCookies from '@shared/utils/privateCookies'
 
 // 重载标识
 const HEAVY_LOAD = 'HEAVY_LOAD'

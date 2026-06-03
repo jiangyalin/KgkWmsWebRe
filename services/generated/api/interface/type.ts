@@ -1,3 +1,4 @@
+import type { ResponseType as AxiosResponseType } from 'axios'
 import type { Method } from './enum'
 
 export interface Result {
@@ -30,7 +31,7 @@ export interface RequestFunc {
       url: string;
       method: Method;
       baseUrl?: string;
-      responseType?: string;
+      responseType?: AxiosResponseType;
     },
     data: Parameter,
     showErrMsg?: boolean

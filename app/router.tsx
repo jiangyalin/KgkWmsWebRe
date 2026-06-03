@@ -4,7 +4,7 @@ import { DefaultLayout } from '@layouts/default-layout';
 import { HomePage } from '@pages/home/HomePage';
 import { LoginPage } from '@pages/login/LoginPage';
 
-export const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     element: <DefaultLayout />,
@@ -28,3 +28,5 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+export default router;

@@ -1,4 +1,4 @@
-import config from '@/config'
+import config from '@app/config'
 
 /**
  * @description 下载文件

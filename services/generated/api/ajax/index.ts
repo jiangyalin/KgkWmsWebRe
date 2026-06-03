@@ -1,16 +1,14 @@
 import Axios from 'axios'
-import type { AxiosResponse } from 'axios/index.d'
 import { Message } from '@arco-design/web-react';
 import config from '@app/config'
 import type { RequestFunc } from '../interface/type'
 import { Method } from '../interface/enum'
-// import signOut from '@/hook/signOut'
 import privateCookies from '@shared/utils/privateCookies'
 
 // 是否存在未关闭的弹窗
 let isExistModal: boolean = false
 const ajax: RequestFunc = (
-  { url, method, baseUrl, responseType } = { url: '', method: Method.GET, baseUrl: '', responseType: '' },
+  { url, method, baseUrl, responseType } = { url: '', method: Method.GET, baseUrl: '', responseType: undefined },
   data = { query: {}, body: {}, headers: {} },
   showErrMsg = true
 ) => {
@@ -22,14 +20,14 @@ const ajax: RequestFunc = (
       params: data.query || (method === Method.GET ? data : {}),
       data: data.body || (method === Method.POST ? data : {}),
       timeout: 1000 * 60 * 3,
-      responseType,
+      responseType: responseType,
       headers: {
         access_token: privateCookies.get('token')
         // access_token: Cookies.get('token') // 'Bearer ' +
         // ...(data.headers || {})
       }
     })
-      .then((res: AxiosResponse) => {
+      .then((res) => {
         if (responseType === 'blob' || responseType === 'arraybuffer') return resolve(res.data)
         res.data.code = Number(res.data.code)
         const code = res.data.code
@@ -50,7 +48,7 @@ const ajax: RequestFunc = (
         }
         resolve(res.data)
       })
-      .catch((err: AxiosResponse) => {
+      .catch((err) => {
         // http异常
         // 请在此处处理http异常
         console.log(err)
