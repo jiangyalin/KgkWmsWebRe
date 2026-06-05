@@ -1,29 +1,28 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 
-import { DefaultLayout } from '@layouts/default-layout';
 import { HomePage } from '@pages/home/HomePage';
 import { LoginPage } from '@pages/login/LoginPage';
+import { MainLayout } from '@layouts/main-layout/MainLayout';
 
 const router = createBrowserRouter([
   {
+    path: 'login',
+    element: <LoginPage />,
+  },
+  {
     path: '/',
-    element: <DefaultLayout />,
+    element: <MainLayout />,
     children: [
       {
         index: true,
-        element: <Navigate to="/login" replace />,
-      },
-      {
-        path: 'login',
-        element: <LoginPage />,
+        element: <Navigate to="/home" replace />,
       },
       {
         path: 'home',
         element: <HomePage />,
-      },
-      {
-        path: '*',
-        element: <Navigate to="/login" replace />,
+        handle: {
+          name: 'momPlanIssue',
+        },
       },
     ],
   },

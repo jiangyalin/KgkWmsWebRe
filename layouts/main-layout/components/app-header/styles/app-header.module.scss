@@ -1,0 +1,87 @@
+.uSlt {
+  margin-right: 16px;
+  width: 170px;
+}
+
+.darkDiv {
+  margin-right: 5px;
+  width: 42px;
+  height: 56px;
+  line-height: 56px;
+  color: var(--el-color-primary);
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+}
+
+.mMsg {
+  margin-right: 5px;
+  width: 42px;
+  height: 56px;
+  color: var(--el-color-primary);
+  font-size: 20px;
+  text-align: center;
+}
+
+.appMenu {
+  flex: 1;
+}
+
+.gHeadBox {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 56px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--el-bg-color);
+  box-shadow: 0 1px 2px rgb(0 21 41 / 8%);
+
+  .uFlexGrow {
+    flex: 1;
+  }
+
+  .uUserGp {
+    &:focus-visible {
+      outline: none;
+    }
+
+    .uGp {
+      display: flex;
+      padding: 0 12px;
+      justify-content: space-between;
+      align-items: center;
+
+      .uImg {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+
+      .uName {
+        padding-left: 8px;
+        font-size: var(--m-fs-body);
+      }
+    }
+  }
+}
+
+.uBtn {
+  width: 50px;
+  height: 55px;
+  font-size: 16px;
+  line-height: 55px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(243, 243, 245);
+  }
+}
+
+.darkSwitch {
+  margin-right: 8px;
+}
+
+.gHeadBox .uSlt .el-select__wrapper {
+  box-shadow: none;
+}

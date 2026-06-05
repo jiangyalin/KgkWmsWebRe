@@ -194,7 +194,7 @@ declare interface MenuDataItemType {
   icon: string;
   isBtn: boolean;
   isHid: boolean;
-  appId: number | null | string;
+  appId: string;
 }
 /** 本地菜单数据 */
 declare type MenuDataType = MenuDataItemType[]

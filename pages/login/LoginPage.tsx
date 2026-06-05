@@ -18,6 +18,7 @@ export function LoginPage() {
     setDialogVisible206,
     msg206,
     login,
+    btnLoading,
   } = useLoginForm();
 
   return (
@@ -70,7 +71,7 @@ export function LoginPage() {
             </div>
             <Checkbox
               className={styles.cbx}
-              value={ruleForm.remember}
+              checked={ruleForm.remember}
               onChange={(value) => updateField('remember', value)}
             >
               记住密码
@@ -79,6 +80,7 @@ export function LoginPage() {
               className={styles.btn}
               shape="round"
               type="primary"
+              loading={btnLoading}
               onClick={login}
             >
               登录
